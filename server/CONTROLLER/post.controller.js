@@ -8,12 +8,11 @@ const getPagination = (page, size) => {
 };
 
 exports.createPost = async (req, res) => {
-  const post = req.body
-  const newPost = new Post({...post,user:req.user})
+  const post = req.body;
+  const newPost = new Post({ ...post, user: req.user });
   try {
-    await newPost.save()
-    res.status(201).json(newPost)
-
+    await newPost.save();
+    res.status(201).json(newPost);
   } catch (error) {
     return res.status(500).json({ msg: error.message });
   }
@@ -38,9 +37,53 @@ exports.getPosts = (req, res) => {
     })
     .catch(() => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving posts.",
+        message: err.message || "Some error occurred while retrieving posts.",
       });
     });
 };
 
+exports.updatePost = async (req,res) => {
+  try {
+    const { postBody, images } = req.body;
+    const post = await Post.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        postBody,
+        images,
+      }
+    );
+    res.json({
+      msg: "Updated Post!",
+      newPost: {
+        ...post._doc,
+        postBody,
+        images,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
+
+exports.likePost = async (req, res) => {
+  try {
+    const post = await Post.find({ _id: req.params.id, likes: req.user._id });
+    if (post.length > 0)
+      return res.status(400).json({ msg: "You liked this post." });
+
+    const like = await Post.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $push: { likes: req.user._id },
+      },
+      { new: true }
+    );
+
+    if (!like)
+      return res.status(400).json({ msg: "This post does not exist." });
+
+    res.json({ msg: "Liked Post!" });
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
+};
