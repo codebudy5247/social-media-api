@@ -5,12 +5,13 @@ const postSchema = new mongoose.Schema(
   {
     postBody: String,
     images: {
-      type: Array,
+      type: String,
       required: true,
     },
     // likes: [{ type: mongoose.Types.ObjectId, ref: 'user' }],
     // comments: [{ type: mongoose.Types.ObjectId, ref: 'comment' }],
-    user: { type: mongoose.Types.ObjectId, ref: "User" },
+    // user: { type: mongoose.Types.ObjectId, ref: "User" },
+    user:String
   },
   {
     timestamps: true,
