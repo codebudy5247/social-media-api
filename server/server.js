@@ -19,6 +19,7 @@ app.get("/", (req, res) => {
 
 app.use('/api/auth',require('./ROUTES/Auth')) //Auth Api
 app.use('/api',require('./ROUTES/User')) //User Api
+app.use('/api/post',require('./ROUTES/Post')) //Post Api
 
 const port = process.env.PORT;
 
