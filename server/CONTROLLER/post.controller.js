@@ -11,26 +11,6 @@ exports.createPost = async (req, res) => {
   const post = req.body
   const newPost = new Post({...post,user:req.user})
   try {
-    // const { postBody, images } = req.body;
-
-    // const newPost = new Post({
-    //   postBody,
-    //   images,
-    //   user: req.user._id,
-    // });
-    // await newPost.save();
-    // res.json({
-    //   msg: "Created Post!",
-    //   newPost: {
-    //     ...newPost._doc,
-    //     // user: {
-    //     //   name: req.user.Name,
-    //     //   avatar: req.user.avatar,
-    //     //   username: req.user.username,
-    //     // },
-    //     user: req.user
-    //   },
-    // });
     await newPost.save()
     res.status(201).json(newPost)
 
