@@ -43,3 +43,4 @@ exports.getPosts = (req, res) => {
       });
     });
 };
+
