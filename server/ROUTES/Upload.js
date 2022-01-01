@@ -76,6 +76,7 @@ router.post("/", (req, res) => {
           msg:"Uploaded Successfully!",
           public_id: image.public_id,
           url: image.secure_url,
+          // IMAGE_Obj:image
         });
       }
     );

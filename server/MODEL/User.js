@@ -35,7 +35,7 @@ const UserSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
-      default: faker.image.avatar(),
+      default: "https://mui.com/static/images/avatar/2.jpg",
     },
     story: {
       type: String,
