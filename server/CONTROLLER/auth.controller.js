@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 //Register User
 exports.CreateUser = async (req, res) => {
-  const { Name,username, Age, Location, PhoneNumber, Email_id, Password ,website} = req.body;
+  const { Name,username, Age, Location, PhoneNumber, Email_id, Password ,bio,instaLink,twitterLink} = req.body;
   try {
     const oldUser = await User.findOne({ Email_id });
 
@@ -20,7 +20,9 @@ exports.CreateUser = async (req, res) => {
       Location,
       PhoneNumber,
       Email_id,
-      website,
+      bio,
+      instaLink,
+      twitterLink,
       Password: hashedPassword,
     });
 
@@ -32,7 +34,7 @@ exports.CreateUser = async (req, res) => {
       }
     );
 
-    res.status(201).json({ result, token });
+    res.status(201).json({  token,msg:"Registered successfull!" });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
 
@@ -62,7 +64,7 @@ exports.LoginUser = async (req, res) => {
       }
     );
 
-    res.status(200).json({ result: oldUser, token });
+    res.status(200).json({  token,msg:"Login successfull!" });
   } catch (err) {
     res.status(500).json({ message: "Something went wrong" });
   }

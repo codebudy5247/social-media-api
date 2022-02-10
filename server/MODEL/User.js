@@ -42,11 +42,22 @@ const UserSchema = new mongoose.Schema(
       default: "",
       maxlength: 200,
     },
-    website: { type: String, default: "", required: true },
+    bio:{
+      type: String,
+      required: true,
+    },
     Role: {
       type: String,
       enum: ["user", "seller", "admin"],
       default: "user",
+    },
+    instaLink:{
+      type: String,
+      required: true,
+    },
+    twitterLink:{
+      type: String,
+      required: true,
     },
     followers: [{type: mongoose.Types.ObjectId, ref: 'User'}],
     following: [{type: mongoose.Types.ObjectId, ref: 'User'}],
