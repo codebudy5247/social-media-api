@@ -9,7 +9,8 @@ const UserSchema = new mongoose.Schema(
     },
     username: {
       type: String,
-      default:faker.internet.userName()
+      // default:faker.internet.userName()
+      required: true,
     },
     Age: {
       type: Number,
@@ -35,7 +36,8 @@ const UserSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
-      default: "https://mui.com/static/images/avatar/2.jpg",
+      // default: "https://mui.com/static/images/avatar/2.jpg",
+      required: true,
     },
     story: {
       type: String,
