@@ -37,7 +37,7 @@ const UserSchema = new mongoose.Schema(
     avatar: {
       type: String,
       // default: "https://mui.com/static/images/avatar/2.jpg",
-      required: true,
+      // required: true,
     },
     story: {
       type: String,
