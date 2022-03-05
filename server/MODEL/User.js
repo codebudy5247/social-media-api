@@ -51,14 +51,14 @@ const UserSchema = new mongoose.Schema(
       enum: ["user", "seller", "admin"],
       default: "user",
     },
-    instaLink:{
-      type: String,
-      required: true,
-    },
-    twitterLink:{
-      type: String,
-      required: true,
-    },
+    // instaLink:{
+    //   type: String,
+    //   required: true,
+    // },
+    // twitterLink:{
+    //   type: String,
+    //   required: true,
+    // },
     followers: [{type: mongoose.Types.ObjectId, ref: 'User'}],
     following: [{type: mongoose.Types.ObjectId, ref: 'User'}],
   },
