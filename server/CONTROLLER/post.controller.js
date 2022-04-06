@@ -1,5 +1,11 @@
 const Post = require("../MODEL/Post.js");
 
+
+//TODO: Delete Post
+//TODO: Get Post by ID
+//TODO: Get Post by User ID
+//TODO: Saved and Usaved post
+
 const getPagination = (page, size) => {
   const limit = size ? +size : 8;
   const offset = page ? page * limit : 0;
@@ -42,6 +48,21 @@ exports.getPosts = (req, res) => {
     });
 };
 
+//get post by id 
+exports.getPostById = async (req, res) => {
+  const postId = req.params.id;
+  try {
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ msg: "Post not found" });
+    }
+    res.status(200).json(post);
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
+
+
 exports.updatePost = async (req,res) => {
   try {
     const { postBody, images } = req.body;
@@ -65,6 +86,20 @@ exports.updatePost = async (req,res) => {
   }
 };
 
+
+exports.deletePost = async (req, res) => {
+  try {
+    const post = await Post.findByIdAndDelete(req.params.id);
+    res.json({
+      msg: "Deleted Post!",
+      post: post,
+    });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
+
+
 exports.likePost = async (req, res) => {
   try {
     const post = await Post.find({ _id: req.params.id, likes: req.user._id });
@@ -87,3 +122,27 @@ exports.likePost = async (req, res) => {
     return res.status(500).json({ msg: err.message });
   }
 };
+
+exports.unLikePost = async (req, res) => {
+  try {
+    const post = await Post.find({ _id: req.params.id, likes: req.user._id });
+    if (post.length === 0)
+      return res.status(400).json({ msg: "You did not like this post." });
+
+    const unlike = await Post.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $pull: { likes: req.user._id },
+      },
+      { new: true }
+    );
+
+    if (!unlike)
+      return res.status(400).json({ msg: "This post does not exist." });
+
+    res.json({ msg: "Unliked Post!" });
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
+}
+
