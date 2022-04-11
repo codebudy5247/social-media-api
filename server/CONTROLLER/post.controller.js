@@ -1,8 +1,5 @@
 const Post = require("../MODEL/Post.js");
 
-
-//TODO: Delete Post
-//TODO: Get Post by ID
 //TODO: Get Post by User ID
 //TODO: Saved and Usaved post
 
