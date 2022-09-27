@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-var faker = require("faker");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -16,10 +15,6 @@ const UserSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    Location: {
-      type: String,
-      required: true,
-    },
     Password: {
       type: String,
       required: true,
@@ -29,20 +24,10 @@ const UserSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    PhoneNumber: {
-      type: Number,
-      required: true,
-      unique: true,
-    },
     avatar: {
       type: String,
-      // default: "https://mui.com/static/images/avatar/2.jpg",
-      // required: true,
-    },
-    story: {
-      type: String,
-      default: "",
-      maxlength: 200,
+      default: "https://mui.com/static/images/avatar/2.jpg",
+      required: true,
     },
     bio:{
       type: String,
@@ -50,17 +35,9 @@ const UserSchema = new mongoose.Schema(
     },
     Role: {
       type: String,
-      enum: ["user", "seller", "admin"],
+      enum: ["user", "admin", "superAdmin"],
       default: "user",
     },
-    // instaLink:{
-    //   type: String,
-    //   required: true,
-    // },
-    // twitterLink:{
-    //   type: String,
-    //   required: true,
-    // },
     followers: [{type: mongoose.Types.ObjectId, ref: 'User'}],
     following: [{type: mongoose.Types.ObjectId, ref: 'User'}],
   },
